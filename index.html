@@ -23,11 +23,11 @@
 
             <div class="buttons  mb-3">
                 <input class="form-control text-center mt-2" type="number" id="guess" placeholder="Chose a number between 1 and 100." onkeypress="handleKeyPress(event)">
-                <button class="btn btn-primary form-control w-100 mt-2 " onclick="playGame()">Validate</button>
+                <button id="validate" class="btn btn-primary form-control w-100 mt-2 " onclick="playGame()">Validate</button>
             </div>
 
             <p id="result" class="text-center fw-bold  ">Result</p>
-            <p id="previous-guesses" class="text-center fw-bold mt-3">Previous guesses :</p>
+            <p id="previous-guesses" class="text-center fw-bold mt-3">Previous guesses</p>
             <p id="attempts" class="text-center fw-bold text-danger ">Attempts</p>
             <p id="score" class="text-center fw-bold text-success">Score</p>
         </div>
