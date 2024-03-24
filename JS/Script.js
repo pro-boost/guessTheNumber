@@ -7,7 +7,8 @@ let score = 0;
 let button = document.getElementById('validate');
 
 // Call generateRandomNumber function when the page loads
-window.onload = generateRandomNumber;
+onload = generateRandomNumber;
+onload = guessInput.focus(); //When the page loads, set the focus on the input field named guessInput,
 
 // Event listener for key presses
 function handleKeyPress(event) {
@@ -24,8 +25,11 @@ function handleKeyPress(event) {
 
 // Function to generate a random number between 1 and 100
 function generateRandomNumber() {
-    randomNumber = Math.floor(Math.random() * 100) + 1;
+    if (!randomNumber) {
+        randomNumber = Math.floor(Math.random() * 100) + 1;
+    }
 }
+
 
 // Function to compare the player's guess with the random number
 function playGame() {    
@@ -41,7 +45,9 @@ function playGame() {
         attempts++;
     } else if (guess === randomNumber) {
         result = "Congratulations! you got it right!";
+        document.getElementById('result').style.color = "Green";
         score++;
+        guessInput.disabled = true;// disables input field
         attempts = 0; // Reset attempts to zero
         document.getElementById('validate').innerText = "Next Game"; 
         button.removeEventListener('click', playGame); // Remove playGame event listener
@@ -53,6 +59,8 @@ function playGame() {
 
     if (attempts === 10) {
         result = "You have reached the maximum number of attempts. You lose!";
+        document.getElementById('result').style.color = "red";
+        guessInput.disabled = true;
         button.innerText = "Replay"; 
         button.addEventListener('click', reloadPage);
     }
@@ -64,8 +72,10 @@ function playGame() {
     document.getElementById('score').innerText = "score : " + score;
 }
 
-// Function to restart the game
+// Function to Next Game
 function replay() {
+    document.getElementById('result').style.color = "black";
+    guessInput.disabled = false; // enables input field
     attempts = 0; // Reset attempts to zero
     randomNumber = null; // Reset the random number
     generateRandomNumber(); // Generate a new random number for the next round
