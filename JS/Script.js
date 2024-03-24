@@ -34,26 +34,30 @@ function generateRandomNumber() {
 
 // Function to compare the player's guess with the random number
 function playGame() {    
-    let guess = parseInt(guessInput.value); // Getting value from input field
+    let guess = Number(guessInput.value); // Getting value from input field (empty "" is now redred as 0 instead of NaN)
     console.log(randomNumber);
+    guessInput.focus(); 
     button.innerText = "Validate";
 
     if (0 < guess && guess < randomNumber) {
         result = "Wrong! your guess was low!";
         attempts++;
+
     } else if (100 >= guess && guess > randomNumber) {
         result = "Wrong! your guess was high!";
         attempts++;
+
     } else if (guess === randomNumber) {
         result = "Congratulations! you got it right!";
         document.getElementById('result').style.color = "Green";
         score++;
-        button.focus(); 
+        button.focus(); // set focus on the buton when the inputfield is disabled
         guessInput.disabled = true;// disables input field
         attempts = 0; // Reset attempts to zero
         document.getElementById('validate').innerText = "Next Game"; 
         button.removeEventListener('click', playGame); // Remove playGame event listener
         button.addEventListener('click', replay); // Add replay event listener
+
     } else {
         result = "Invalid input! Please enter a number between 1 and 100.";
         attempts++; // Increment attempts if the input is invalid
@@ -64,12 +68,10 @@ function playGame() {
         document.getElementById('result').style.color = "red";
         guessInput.disabled = true;
         button.innerText = "Replay";
-        button.focus(); 
+        button.focus(); // set focus on the buton when the inputfield is disabled
         button.addEventListener('click', reloadPage);
     }
-    if (guess === undefined || guess === null || guess === "" || typeof guess !== 'number') {
-        guess = 0;
-    }
+
     
     guessInput.value = ""; // Clear the input field after each guess
     document.getElementById('previous-guesses').innerText += " " + guess + " "; // Display all previous guesses
