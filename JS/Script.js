@@ -5,10 +5,11 @@ let result;
 let attempts = 0;
 let score = 0;
 let button = document.getElementById('validate');
+guess = parseFloat(guess);
 
 // Call generateRandomNumber function when the page loads
 onload = generateRandomNumber;
-onload = guessInput.focus(); //When the page loads, set the focus on the input field named guessInput,
+guessInput.focus();  //When the page loads, set the focus on the input field named guessInput,
 
 // Event listener for key presses
 function handleKeyPress(event) {
@@ -47,6 +48,7 @@ function playGame() {
         result = "Congratulations! you got it right!";
         document.getElementById('result').style.color = "Green";
         score++;
+        button.focus(); 
         guessInput.disabled = true;// disables input field
         attempts = 0; // Reset attempts to zero
         document.getElementById('validate').innerText = "Next Game"; 
@@ -61,10 +63,14 @@ function playGame() {
         result = "You have reached the maximum number of attempts. You lose!";
         document.getElementById('result').style.color = "red";
         guessInput.disabled = true;
-        button.innerText = "Replay"; 
+        button.innerText = "Replay";
+        button.focus(); 
         button.addEventListener('click', reloadPage);
     }
-
+    if (guess === undefined || guess === null || guess === "" || typeof guess !== 'number') {
+        guess = 0;
+    }
+    
     guessInput.value = ""; // Clear the input field after each guess
     document.getElementById('previous-guesses').innerText += " " + guess + " "; // Display all previous guesses
     document.getElementById('result').innerText = result;
