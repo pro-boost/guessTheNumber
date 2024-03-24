@@ -85,6 +85,7 @@ function playGame() {
 function replay() {
     document.getElementById('result').style.color = "black";
     guessInput.disabled = false; // enables input field
+    guessInput.focus(); // set focus on the input field when the inputfield is enabled
     attempts = 0; // Reset attempts to zero
     randomNumber = null; // Reset the random number
     generateRandomNumber(); // Generate a new random number for the next round
