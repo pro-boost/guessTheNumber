@@ -60,7 +60,8 @@ function playGame() {
 
     } else {
         result = "Invalid input! Please enter a number between 1 and 100.";
-        attempts++; // Increment attempts if the input is invalid
+        guess="";
+    
     }
 
     if (attempts === 10) {
