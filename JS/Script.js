@@ -1,17 +1,17 @@
-// Initialize variables
+// Initialize variables to be able to use them in functions
 let randomNumber;
 let guessInput = document.getElementById("guess");
 let result;
 let attempts = 0;
 let score = 0;
-let button = document.getElementById('validate');
+let button = document.getElementById("validate");
 guess = parseFloat(guess);
 
-// Call generateRandomNumber function when the page loads
-onload = generateRandomNumber;
+
+onload = generateRandomNumber;// Call generateRandomNumber function when the page loads
 guessInput.focus();  //When the page loads, set the focus on the input field named guessInput,
 
-// Event listener for key presses
+// fucntion to read playGame(), replay() and reloadPage() when pressing "Enter" key
 function handleKeyPress(event) {
     if (event.key === 'Enter') {
         if (button.innerText === "Replay") {
@@ -34,7 +34,7 @@ function generateRandomNumber() {
 
 // Function to compare the player's guess with the random number
 function playGame() {    
-    let guess = Number(guessInput.value); // Getting value from input field (empty "" is now redred as 0 instead of NaN)
+    let guess = Number(guessInput.value); // Using Number() to have the value of 0 instead of NaN when input is empty "" 
     console.log(randomNumber);
     guessInput.focus(); 
     button.innerText = "Validate";
@@ -51,12 +51,12 @@ function playGame() {
         result = "Congratulations! you got it right!";
         document.getElementById('result').style.color = "Green";
         score++;
-        button.focus(); // set focus on the buton when the inputfield is disabled
-        guessInput.disabled = true;// disables input field
-        attempts = 0; // Reset attempts to zero
+        button.focus(); // set focus on the buton because the inputfield is disabled
+        guessInput.disabled = true;// disables input field to not let player add a guess
+        attempts = 0; // Reset attempts to zero because the player won
         document.getElementById('validate').innerText = "Next Game"; 
-        button.removeEventListener('click', playGame); // Remove playGame event listener
-        button.addEventListener('click', replay); // Add replay event listener
+        button.removeEventListener('click', playGame); // Remove playGame event listener to read replay() when clicking
+        button.addEventListener('click', replay); 
 
     } else {
         result = "Invalid input! Please enter a number between 1 and 100.";
@@ -69,35 +69,35 @@ function playGame() {
         document.getElementById('result').style.color = "red";
         guessInput.disabled = true;
         button.innerText = "Replay";
-        button.focus(); // set focus on the buton when the inputfield is disabled
+        button.focus(); 
         button.addEventListener('click', reloadPage);
     }
 
     
     guessInput.value = ""; // Clear the input field after each guess
-    document.getElementById('previous-guesses').innerText += " " + guess + " "; // Display all previous guesses
+    document.getElementById('previous-guesses').innerText += " " + guess + " "; // Display all previous guesses by using += 
     document.getElementById('result').innerText = result;
     document.getElementById('attempts').innerText = "Failed attempts : " + attempts;
     document.getElementById('score').innerText = "score : " + score;
 }
 
-// Function to Next Game
+// Function to replay the game when the player wins
 function replay() {
     document.getElementById('result').style.color = "black";
-    guessInput.disabled = false; // enables input field
-    guessInput.focus(); // set focus on the input field when the inputfield is enabled
-    attempts = 0; // Reset attempts to zero
+    guessInput.disabled = false; 
+    guessInput.focus(); 
+    attempts = 0; 
     randomNumber = null; // Reset the random number
     generateRandomNumber(); // Generate a new random number for the next round
-    document.getElementById('result').innerText = "Result"; // Reset result
-    document.getElementById('previous-guesses').innerText = "Previous guesses"; // Clear previous guesses
-    document.getElementById('attempts').innerText = "Attempts"; // Reset attempts display
-    document.getElementById('validate').innerText = "Validate"; // Change button text back to "Validate"
-    document.getElementById('validate').removeEventListener('click', replay); // Remove replay event listener
-    document.getElementById('validate').addEventListener('click', playGame); // Add playGame event listener
+    document.getElementById('result').innerText = "Result"; 
+    document.getElementById('previous-guesses').innerText = "Previous guesses"; 
+    document.getElementById('attempts').innerText = "Attempts"; 
+    document.getElementById('validate').innerText = "Validate"; 
+    document.getElementById('validate').removeEventListener('click', replay);
+    document.getElementById('validate').addEventListener('click', playGame); 
 }
 
-// Function to reload the page
+// Function to reload the page when the player looses
 function reloadPage() {
-    window.location.reload(); // Reload the page
+    window.location.reload(); 
 }
